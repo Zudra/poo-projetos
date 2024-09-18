@@ -17,7 +17,7 @@ public class Conversor {
         while (true) {
             exibirMenu();
             int escolha = scanner.nextInt();
-            scanner.nextLine(); // Limpar o buffer
+            scanner.nextLine();
 
             switch (escolha) {
                 case 1:

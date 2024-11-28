@@ -4,9 +4,9 @@ import com.fag.domain.dto.BankslipDTO;
 
 public interface IBassRepository {
 
-    String consultInvoice(String barcode);
+    String consultarBoleto(String barcode);
 
-    String payInvoice(BankslipDTO payload);
+    String payBoleto(BankslipDTO payload);
 
     String generatedQRCode(Double payload);
 }

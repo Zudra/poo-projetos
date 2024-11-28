@@ -21,11 +21,11 @@ public class BankingService {
             switch (option) {
                 case 1:
                     String barcode = userInterface.getBarcode();
-                    userInterface.showBankslipData(celcoin.consultInvoice(barcode));
+                    userInterface.showBankslipData(celcoin.consultarBoleto(barcode));
                     break;
                 case 2:
                     BankslipDTO data = userInterface.getPaymentsBankslipInfo();
-                    userInterface.showBankslipData(celcoin.payInvoice(data));
+                    userInterface.showBankslipData(celcoin.payBoleto(data));
                     break;
 
                 case 3:

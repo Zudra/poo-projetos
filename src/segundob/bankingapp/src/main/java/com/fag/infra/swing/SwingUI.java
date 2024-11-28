@@ -112,7 +112,7 @@ public class SwingUI implements IUserInterface {
         public void showExitMessage() {
                 JOptionPane.showMessageDialog(
                                 null,
-                                "Obrigado por utilizar a aplicação!",
+                                "Obrigado por utilizar o ZudraBank!",
                                 "Logout",
                                 JOptionPane.CANCEL_OPTION);
         }

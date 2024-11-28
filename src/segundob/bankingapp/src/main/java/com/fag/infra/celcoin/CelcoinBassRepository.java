@@ -28,7 +28,7 @@ public class CelcoinBassRepository implements IBassRepository {
     }
 
     @Override
-    public String consultInvoice(String barcode) {
+    public String consultarBoleto(String barcode) {
         try {
             String params = "{\"barCode\":{\"type\":0,\"digitable\":\"" + barcode + "\"}}";
 
@@ -69,7 +69,7 @@ public class CelcoinBassRepository implements IBassRepository {
     }
 
     @Override
-    public String payInvoice(BankslipDTO payload) {
+    public String payBoleto(BankslipDTO payload) {
         try {
             String params = "{\r\n" + //
                     "  \"cpfCnpj\": \"24602516025\",\r\n" + //

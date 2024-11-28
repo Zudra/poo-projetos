@@ -85,7 +85,7 @@ public class ConsoleUI implements IUserInterface {
 
     @Override
     public void showExitMessage() {
-        System.out.println("Obrigado por utilizar a aplicacao!");
+        System.out.println("Obrigado por utilizar o ZudraBank!");
     }
 
     @Override

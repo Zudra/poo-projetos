@@ -40,7 +40,7 @@ public class Main {
             case 3:
                 System.out.println("Saindo do programa...");
                 inpuScanner.close();
-                break;
+                return;
             default:
                 System.out.println("Opção inválida. Por favor, escolha novamente.");
                 break;

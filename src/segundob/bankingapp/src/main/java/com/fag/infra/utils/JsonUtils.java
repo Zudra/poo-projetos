@@ -24,11 +24,14 @@ public class JsonUtils {
     }
 
     public static String getField(String json, String field) {
-        Map<String, Object> jsonMap = srtToMap(json);
+        try{
+            Map<String, Object> jsonMap = srtToMap(json);
 
-        String fieldValue = jsonMap.get(field).toString();
+            String fieldValue = jsonMap.get(field).toString();
 
-        return fieldValue;
+            return fieldValue;
+        } catch (Exception e) {
+            return "Campo não encontrado";
+        }
     }
-
 }

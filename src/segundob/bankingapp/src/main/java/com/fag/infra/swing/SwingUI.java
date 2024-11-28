@@ -5,6 +5,7 @@ import javax.swing.*;
 import com.fag.domain.repositories.IUserInterface;
 import com.fag.domain.dto.BankslipDTO;
 import com.fag.domain.dto.LoginDTO;
+import com.fag.domain.dto.PixDTO;
 import com.fag.domain.dto.UserAccountDTO;
 
 public class SwingUI implements IUserInterface {
@@ -18,7 +19,7 @@ public class SwingUI implements IUserInterface {
 
     @Override
     public Integer showHomeMenu(String userName) {
-        String[] options = {"Gerar QR Code PIX", "Consultar boleto", "Realizar pagamento boleto"};
+        String[] options = {"Gerar QR Code PIX", "Consultar boleto", "Realizar pagamento boleto", "Sair"};
         int option = JOptionPane.showOptionDialog(null, "Olá " + userName + "! O que deseja fazer hoje?", "Menu Principal", 
                                                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         return option + 1;
@@ -96,20 +97,27 @@ public class SwingUI implements IUserInterface {
         JOptionPane.showMessageDialog(
                 null,
                 qrCode,
-                "Dados PIX",
+                "QR Code PIX",
                 JOptionPane.INFORMATION_MESSAGE);
         return;
     }
 
     @Override
-    public Double getPixData() {
-        String amount = JOptionPane.showInputDialog(
+    public PixDTO getPixData() {
+        String chavePix = JOptionPane.showInputDialog(
+                null,
+                "Insira a chave PIX",
+                "Chave PIX",
+                JOptionPane.INFORMATION_MESSAGE);
+        String ammount = JOptionPane.showInputDialog(
                 null,
                 "Insira o valor do PIX",
-                "Valor transação",
+                "Valor PIX",
                 JOptionPane.INFORMATION_MESSAGE);
+        
+        PixDTO pixData = new PixDTO(chavePix, Double.parseDouble(ammount));
 
-        return Double.parseDouble(amount);
+        return pixData;
     }
 
     @Override

@@ -36,7 +36,6 @@ public class CelcoinBassRepository implements IBassRepository {
     public String consultarBoleto(String linhaDigitavel) {
         try {
             System.out.println("Consultando boleto " + linhaDigitavel + " na celcoin");
-            System.out.println(genToken());
 
             HttpClient client = HttpClient.newHttpClient();
             URI uri = new URI("https://sandbox.openfinance.celcoin.dev/v5/transactions/billpayments/authorize");
@@ -65,7 +64,7 @@ public class CelcoinBassRepository implements IBassRepository {
 
             HttpClient client = HttpClient.newHttpClient();
             URI uri = new URI("https://sandbox.openfinance.celcoin.dev/v5/transactions/billpayments");
-            String params = "{\"cpfCnpj\":"+document+",\"billData\":{\"originalValue\":\""+originalValue+"\",\"valueWithDiscount\":\""+valueWithDiscount+"\",\"valueWithAdditional\":\""+valueWithAdditional+"\"},\"barCode\":{\"type\":0,\"digitable\":\""+dadosBoletoConsultado.getBarcode()+"\"}}";
+            String params = "{\"cpfCnpj\":\""+document+"\",\"billData\":{\"originalValue\":\""+originalValue+",\"valueWithDiscount\":"+valueWithDiscount+",\"valueWithAdditional\":"+valueWithAdditional+"},\"barCode\":{\"type\":0,\"digitable\":\""+dadosBoletoConsultado.getBarcode()+"\"}}";
 
             HttpRequest request = HttpRequest.newBuilder(uri)
                     .header("Content-Type", "application/json")
@@ -83,14 +82,15 @@ public class CelcoinBassRepository implements IBassRepository {
     }
 
     @Override
-    public String gerarQrCode(String document, Double valorPix) {
+    public String gerarQrCode(String chavePix, Double valorPix) {
 
         try {
             System.out.println("Gerando QR Code Pix " + valorPix + " na celcoin");
+            System.out.println(genToken().toString());
 
             HttpClient client = HttpClient.newHttpClient();
-            URI uri = new URI("https://sandbox.openfinance.celcoin.dev/pix-indirect/v1/pix/v1/brcode/static");
-            String params = "{\"key\":\""+document+"\",\"amount\":"+valorPix+"}";
+            URI uri = new URI("https://sandbox.openfinance.celcoin.dev/pix/v1/brcode/static");
+            String params = "{\"merchant\":{\"merchantCategoryCode\":\"5651\",\"postalCode\":\"85806093\",\"city\":\"cascavel\",\"name\":\"Fag\"},\"key\":\""+chavePix+"\",\"amount\":"+valorPix+"}";
 
             HttpRequest request = HttpRequest.newBuilder(uri)
                     .header("Content-Type", "application/json")

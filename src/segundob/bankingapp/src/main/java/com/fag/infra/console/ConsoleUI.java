@@ -1,12 +1,11 @@
 package com.fag.infra.console;
 
-import java.util.Map;
 import java.util.Scanner;
-
 
 import com.fag.domain.dto.BankslipDTO;
 import com.fag.domain.dto.LoginDTO;
 import com.fag.domain.dto.UserAccountDTO;
+import com.fag.domain.dto.PixDTO;
 import com.fag.domain.repositories.IUserInterface;
 
 public class ConsoleUI implements IUserInterface {
@@ -33,6 +32,7 @@ public class ConsoleUI implements IUserInterface {
         System.out.println("[1] Gerar QR Code PIX");
         System.out.println("[2] Consultar boleto");
         System.out.println("[3] Realizar pagamento boleto");
+        System.out.println("[4] Sair");
 
         int option = inpuScanner.nextInt();
 
@@ -113,16 +113,24 @@ public class ConsoleUI implements IUserInterface {
     }
 
     @Override
-    public Double getPixData() {
-        System.out.println("Insira valor do PIX:");
+    public PixDTO getPixData() {
+        System.out.println("Insira a chave PIX:");
+        String chavePix = inpuScanner.nextLine();
+
+        System.out.println("Insira o valor:");
         Double amount = inpuScanner.nextDouble();
 
-        return amount;
+        inpuScanner.nextLine();
+
+        PixDTO pixData = new PixDTO(chavePix, amount);
+
+        return pixData;
     }
 
     @Override
     public void showPixData(String qrCode) {
-    System.out.println("Dados do PIX: ");
+    System.out.println("Código QR: ");
+    System.out.println(qrCode);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.fag.domain.dto;
 
 public class BankslipDTO {
-    
     private String barcode;
     private String transactionId;
     public String getBarcode() {

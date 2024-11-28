@@ -32,6 +32,9 @@ public class Application {
                     break;
                 case 3:
                     gui.showExitMessage();
+                    return;
+                default:
+                    gui.showErrorMsg("Opção inválida!");
                     break;
             }
         }

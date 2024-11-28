@@ -1,37 +1,28 @@
 package com.fag.infra.utils;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JsonUtils {
-    public static Map<String, Object> srtToMap(String strJson) {
+    public Map<String, Object> toJson(String apiResponse){
+        try {
+            Pattern pattern = Pattern.compile("\"(\\w+)\"\\s*:\\s*(\"[^\"]*\"|\\d+|true|false|null)");
+            Matcher matcher = pattern.matcher(apiResponse);
 
-        Pattern pattern = Pattern.compile("\"(\\w+)\"\\s*:\\s*(\"[^\"]*\"|\\d+|true|false|null)");
-        Matcher matcher = pattern.matcher(strJson);
+            Map<String, Object> jsonData = new HashMap<>();
 
-        Map<String, Object> jsonData = new HashMap<>();
+            while (matcher.find()) {
+                String key = matcher.group(1);
+                String value = matcher.group(2);
+    
+                jsonData.put(key, value.replace("\"", ""));
+            }
 
-        while (matcher.find()) {
-            String key = matcher.group(1);
-            String value = matcher.group(2);
-
-            jsonData.put(key, value.replace("\"", ""));
-        }
-
-        return jsonData;
-    }
-
-    public static String getField(String json, String field) {
-        try{
-            Map<String, Object> jsonMap = srtToMap(json);
-
-            String fieldValue = jsonMap.get(field).toString();
-
-            return fieldValue;
+            return jsonData;
         } catch (Exception e) {
-            return "Campo não encontrado";
+            e.printStackTrace();
+            return null;
         }
     }
 }

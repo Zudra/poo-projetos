@@ -5,23 +5,22 @@ import java.util.Scanner;
 import com.fag.domain.dto.BankslipDTO;
 import com.fag.domain.dto.LoginDTO;
 import com.fag.domain.dto.UserAccountDTO;
-import com.fag.domain.dto.PixDTO;
 import com.fag.domain.repositories.IUserInterface;
 
 public class ConsoleUI implements IUserInterface {
 
-    private Scanner inpuScanner = new Scanner(System.in);
+    private Scanner reader = new Scanner(System.in);
 
     @Override
     public Integer showInitialScreenMenu() {
-        System.out.println("Bem vindo ao Zudra Bank!");
+        System.out.println("Bem vindo ao ZudraBank!");
         System.out.println("[1] Realizar login");
         System.out.println("[2] Criar conta");
         System.out.println("[3] Sair");
 
-        int option = inpuScanner.nextInt();
+        Integer option = reader.nextInt();
 
-        inpuScanner.nextLine();
+        reader.nextLine();
 
         return option;
     }
@@ -29,74 +28,88 @@ public class ConsoleUI implements IUserInterface {
     @Override
     public Integer showHomeMenu(String userName) {
         System.out.println("Olá " + userName + "! O que deseja fazer hoje?");
-        System.out.println("[1] Gerar QR Code PIX");
-        System.out.println("[2] Consultar boleto");
-        System.out.println("[3] Realizar pagamento boleto");
-        System.out.println("[4] Sair");
+        System.out.println("[1] Consultar boleto");
+        System.out.println("[2] Pagamento boleto");
+        System.out.println("[3] Gerar QR Code PIX");
+        System.out.println("[4] Logout");
 
-        int option = inpuScanner.nextInt();
-
-        inpuScanner.nextLine();
+        Integer option = reader.nextInt();
 
         return option;
     }
 
     @Override
     public com.fag.domain.dto.LoginDTO getLoginData() {
+        LoginDTO data = new LoginDTO();
 
-        System.out.println("Digite seu documento:");
-        String document = inpuScanner.nextLine();
+        System.out.println("Informe seu documento:");
+        String document = reader.nextLine();
 
-        System.out.println("Digite sua senha:");
-        String password = inpuScanner.nextLine();
+        System.out.println("Informe sua senha:");
+        String password = reader.nextLine();
 
-        LoginDTO loginData = new LoginDTO(document, password);
+        data.setDocument(document);
+        data.setPassword(password);
 
-        return loginData;
+        return data;
     }
 
     @Override
     public UserAccountDTO getCreateUserData() {
+        UserAccountDTO data = new UserAccountDTO();
 
+        System.out.println("Informe seu documento:");
+        String document = reader.nextLine();
 
-        System.out.println("Digite seu documento:");
-        String document = inpuScanner.nextLine();
+        System.out.println("Informe seu email:");
+        String email = reader.nextLine();
 
-        System.out.println("Digite seu nome:");
-        String name = inpuScanner.nextLine();
+        System.out.println("Informe seu nome:");
+        String name = reader.nextLine();
 
-        System.out.println("Digite seu email:");
-        String email = inpuScanner.nextLine();
+        System.out.println("Informe sua senha:");
+        String password = reader.nextLine();
 
-        System.out.println("Digite sua senha:");
-        String password = inpuScanner.nextLine();
+        data.setDocument(document);
+        data.setEmail(email);
+        data.setName(name);
+        data.setPassword(password);
 
-        System.out.println("Digite sua conta:");
-        String accountNumber = inpuScanner.nextLine();
+        return data;
+    }
 
-        UserAccountDTO userData = new UserAccountDTO(document, name, email, password, accountNumber);
+    @Override
+    public void showErrorMsg(String msg) {
+        System.out.println("ERRO: " + msg);
+    }
 
-        return userData;
+    @Override
+    public void showExitMessage() {
+        System.out.println("Obrigado por utilizar a aplicacao!");
     }
 
     @Override
     public String getBarcode() {
         System.out.println("Insira o código de barras:");
-        String barcode = inpuScanner.nextLine();
+        String barcode = reader.nextLine();
 
         return barcode;
     }
 
     @Override
-    public BankslipDTO getPaymentBankslipInfo() {
+    public BankslipDTO getPaymentsBankslipInfo() {
         BankslipDTO bankslipDTO = new BankslipDTO();
 
         System.out.println("Insira o código de barras:");
-        String barcode = inpuScanner.nextLine();
+        String barcode = reader.nextLine();
 
         System.out.println("Insira o identificador de pagamento:");
-        String id = inpuScanner.nextLine();
+        String id = reader.nextLine();
 
+        System.out.println("Insira o valor de pagamento:");
+        String amount = reader.nextLine();
+
+        bankslipDTO.setValue(Double.parseDouble(amount));
         bankslipDTO.setBarcode(barcode);
         bankslipDTO.setTransactionId(id);
 
@@ -104,45 +117,25 @@ public class ConsoleUI implements IUserInterface {
     }
 
     @Override
-    public void showBankslipData(String recipientFinal, String dueDate, String value) { 
-        System.out.println("Dados do boleto: ");
-        System.out.println("Beneficiário: " + recipientFinal);
-        System.out.println("Vencimento: " + dueDate);
-        System.out.println("Valor: " + value);
-        return;
+    public void showBankslipData(String data) {
+        System.out.println("Dados do boleto: " + data);
     }
 
     @Override
-    public PixDTO getPixData() {
-        System.out.println("Insira a chave PIX:");
-        String chavePix = inpuScanner.nextLine();
+    public Double getPixData() {
+        System.out.println("Insira valor do PIX:");
+        Double amount = reader.nextDouble();
 
-        System.out.println("Insira o valor:");
-        Double amount = inpuScanner.nextDouble();
-
-        inpuScanner.nextLine();
-
-        PixDTO pixData = new PixDTO(chavePix, amount);
-
-        return pixData;
+        return amount;
     }
 
     @Override
-    public void showPixData(String qrCode) {
-    System.out.println("Código QR: ");
-    System.out.println(qrCode);
+    public void showPixData(String data) {
+        System.out.println("Dados do PIX: " + data);
     }
 
     @Override
-    public void showErrorMsg(String msg) {
-        System.out.println(msg);
-        return;
+    public void showLogoutMessage() {
+        System.out.println("Saindo da sua conta!");
     }
-    
-    @Override
-    public void showExitMessage() {
-        System.out.println("Obrigado por utilizar o Zudra Bank!");
-        return;
-    }
-
 }

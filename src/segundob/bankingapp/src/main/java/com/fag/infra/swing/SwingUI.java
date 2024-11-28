@@ -1,134 +1,192 @@
 package com.fag.infra.swing;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
-import com.fag.domain.repositories.IUserInterface;
 import com.fag.domain.dto.BankslipDTO;
 import com.fag.domain.dto.LoginDTO;
-import com.fag.domain.dto.PixDTO;
 import com.fag.domain.dto.UserAccountDTO;
+import com.fag.domain.repositories.IUserInterface;
 
 public class SwingUI implements IUserInterface {
-    @Override
-    public Integer showInitialScreenMenu() {
-        String[] options = {"Realizar login", "Criar conta", "Sair"};
-        int option = JOptionPane.showOptionDialog(null, "Bem vindo ao Zudra Bank!", "Menu Principal", JOptionPane.DEFAULT_OPTION,   
-                                                    JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-        return option + 1;
-    }
+        @Override
+        public Integer showInitialScreenMenu() {
+                String menu = "-*-*-*-*-*Zudra Bank*-*-*-*-*-\n"
+                                .concat("[1] Login\n")
+                                .concat("[2] Cadastro\n")
+                                .concat("[3] Sair");
 
-    @Override
-    public Integer showHomeMenu(String userName) {
-        String[] options = {"Gerar QR Code PIX", "Consultar boleto", "Realizar pagamento boleto", "Sair"};
-        int option = JOptionPane.showOptionDialog(null, "Olá " + userName + "! O que deseja fazer hoje?", "Menu Principal", 
-                                                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-        return option + 1;
-    }
+                String escolha = JOptionPane.showInputDialog(
+                                null,
+                                menu,
+                                "Menu Inicial",
+                                JOptionPane.INFORMATION_MESSAGE);
 
-    @Override
-    public com.fag.domain.dto.LoginDTO getLoginData() {
-        String document = JOptionPane.showInputDialog("Digite seu documento:");
-        String password = JOptionPane.showInputDialog("Digite sua senha:");
-        
-        LoginDTO loginData = new LoginDTO(document, password);
+                return Integer.parseInt(escolha);
+        }
 
-        return loginData;
-    }
+        @Override
+        public LoginDTO getLoginData() {
+                LoginDTO user = new LoginDTO();
 
-    @Override
-    public com.fag.domain.dto.UserAccountDTO getCreateUserData() {
+                String document = JOptionPane.showInputDialog(
+                                null,
+                                "Informe seu documento",
+                                "Informe os dados",
+                                1);
 
-        String document = JOptionPane.showInputDialog("Digite seu documento:");
-        String name = JOptionPane.showInputDialog("Digite seu nome:");
-        String email = JOptionPane.showInputDialog("Digite seu email:");
-        String password = JOptionPane.showInputDialog("Digite sua senha:");
-        String accountNumber = JOptionPane.showInputDialog("Digite sua conta:");
+                String password = JOptionPane.showInputDialog(
+                                null,
+                                "Informe sua senha",
+                                "Informe os dados",
+                                1);
 
-        UserAccountDTO userData = new UserAccountDTO(document, name, email, password, accountNumber);
+                user.setDocument(document);
+                user.setPassword(password);
 
-        return userData;
+                return user;
+        }
 
-    }
+        @Override
+        public UserAccountDTO getCreateUserData() {
+                UserAccountDTO user = new UserAccountDTO();
 
-    @Override
-    public String getBarcode() {
-        String barcode = JOptionPane.showInputDialog(
-                null,
-                "Insira o código de barras a ser consultado",
-                "Código de barras",
-                JOptionPane.INFORMATION_MESSAGE);
+                String document = JOptionPane.showInputDialog(
+                                null,
+                                "Informe seu documento",
+                                "Informe os dados",
+                                1);
 
-        return barcode;
-    }
+                String name = JOptionPane.showInputDialog(
+                                null,
+                                "Informe seu nome",
+                                "Informe os dados",
+                                1);
 
-    @Override
-    public BankslipDTO getPaymentBankslipInfo() {
-        BankslipDTO bankslipDTO = new BankslipDTO();
+                String email = JOptionPane.showInputDialog(
+                                null,
+                                "Informe seu email",
+                                "Informe os dados",
+                                1);
 
-        String barcode = JOptionPane.showInputDialog(
-                null,
-                "Insira o código de barras a ser pago",
-                "Código de barras",
-                JOptionPane.INFORMATION_MESSAGE);
-        String transactionId = JOptionPane.showInputDialog(
-                null,
-                "Insira o identificador de pagamento",
-                "Identificador",
-                JOptionPane.INFORMATION_MESSAGE);
+                String password = JOptionPane.showInputDialog(
+                                null,
+                                "Informe sua senha",
+                                "Informe os dados",
+                                1);
 
-        bankslipDTO.setBarcode(barcode);
-        bankslipDTO.setTransactionId(transactionId);
+                user.setDocument(document);
+                user.setEmail(email);
+                user.setName(name);
+                user.setPassword(password);
 
-        return bankslipDTO;
-    }
+                return user;
+        }
 
-    @Override
-    public void showBankslipData(String recipientFinal, String dueDate, String value) {
-        JOptionPane.showMessageDialog(
-                null,
-                "Beneficiário: " + recipientFinal + "\nVencimento: " + dueDate + "\nValor: " + value,
-                "Dados do boleto",
-                JOptionPane.INFORMATION_MESSAGE);
-        return;
-    }
+        @Override
+        public Integer showHomeMenu(String userName) {
+                String menu = "-*-*-*-*-*Bem Vindo " + userName + "!*-*-*-*-*-\n"
+                                .concat("[1] Consulta boleto\n")
+                                .concat("[2] Pagamento boleto\n")
+                                .concat("[3] Gerar QR Code\n")
+                                .concat("[4] Logout");
 
-    @Override
-    public void showPixData(String qrCode) {
-        JOptionPane.showMessageDialog(
-                null,
-                qrCode,
-                "QR Code PIX",
-                JOptionPane.INFORMATION_MESSAGE);
-        return;
-    }
+                String escolha = JOptionPane.showInputDialog(
+                                null,
+                                menu,
+                                "Home Banco",
+                                JOptionPane.INFORMATION_MESSAGE);
 
-    @Override
-    public PixDTO getPixData() {
-        String chavePix = JOptionPane.showInputDialog(
-                null,
-                "Insira a chave PIX",
-                "Chave PIX",
-                JOptionPane.INFORMATION_MESSAGE);
-        String ammount = JOptionPane.showInputDialog(
-                null,
-                "Insira o valor do PIX",
-                "Valor PIX",
-                JOptionPane.INFORMATION_MESSAGE);
-        
-        PixDTO pixData = new PixDTO(chavePix, Double.parseDouble(ammount));
+                return Integer.parseInt(escolha);
+        }
 
-        return pixData;
-    }
+        @Override
+        public void showErrorMsg(String msg) {
+                JOptionPane.showMessageDialog(
+                                null,
+                                "ERRO: " + msg,
+                                "ERRO!",
+                                JOptionPane.ERROR_MESSAGE);
+        }
 
-    @Override
-    public void showErrorMsg(String msg) {
-        JOptionPane.showMessageDialog(null, msg);
-        return;
-    }
+        @Override
+        public void showExitMessage() {
+                JOptionPane.showMessageDialog(
+                                null,
+                                "Obrigado por utilizar a aplicação!",
+                                "Logout",
+                                JOptionPane.CANCEL_OPTION);
+        }
 
-    @Override
-    public void showExitMessage() {
-        JOptionPane.showMessageDialog(null, "Obrigado por utilizar o Zudra Bank!");
-        return;
-    }
+        @Override
+        public String getBarcode() {
+                return JOptionPane.showInputDialog(
+                                null,
+                                "Insira o código de barras",
+                                "Código de barras",
+                                JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public BankslipDTO getPaymentsBankslipInfo() {
+                BankslipDTO bankslipDTO = new BankslipDTO();
+                String barcode = JOptionPane.showInputDialog(
+                                null,
+                                "Insira o código de barras a ser pago",
+                                "Código de barras",
+                                JOptionPane.INFORMATION_MESSAGE);
+                String transactionId = JOptionPane.showInputDialog(
+                                null,
+                                "Insira o identificador de pagamento",
+                                "Identificador",
+                                JOptionPane.INFORMATION_MESSAGE);
+                String amount = JOptionPane.showInputDialog(
+                                null,
+                                "Insira o valor a ser pago",
+                                "Valor",
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                bankslipDTO.setValue(Double.parseDouble(amount));
+                bankslipDTO.setBarcode(barcode);
+                bankslipDTO.setTransactionId(transactionId);
+
+                return bankslipDTO;
+        }
+
+        @Override
+        public void showBankslipData(String data) {
+                JOptionPane.showMessageDialog(
+                                null,
+                                data,
+                                "Dados boleto",
+                                JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void showPixData(String data) {
+                JOptionPane.showMessageDialog(
+                                null,
+                                data,
+                                "Dados PIX",
+                                JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public Double getPixData() {
+                String amount = JOptionPane.showInputDialog(
+                                null,
+                                "Insira o valor do PIX",
+                                "Valor transação",
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                return Double.parseDouble(amount);
+        }
+
+        @Override
+        public void showLogoutMessage() {
+                JOptionPane.showMessageDialog(
+                                null,
+                                "Saindo da sua conta!",
+                                "Logout",
+                                JOptionPane.CANCEL_OPTION);
+        }
 }

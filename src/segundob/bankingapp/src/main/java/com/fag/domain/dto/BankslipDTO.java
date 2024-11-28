@@ -1,8 +1,13 @@
 package com.fag.domain.dto;
 
 public class BankslipDTO {
+
     private String barcode;
+
     private String transactionId;
+
+    private Double value;
+
     public String getBarcode() {
         return barcode;
     }
@@ -15,7 +20,16 @@ public class BankslipDTO {
         return transactionId;
     }
 
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
+
 }

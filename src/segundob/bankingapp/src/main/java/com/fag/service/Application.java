@@ -6,11 +6,9 @@ import com.fag.domain.repositories.IUserInterface;
 import com.fag.domain.repositories.IUserRepository;
 
 public class Application {
-
-    public void execute(IUserInterface gui, IUserRepository userDB, IBassRepository bassRepo) {
-
-        UserService userService = new UserService(gui, userDB);
-        BankingService bankingService = new BankingService(gui, userDB, bassRepo);
+    public void execute(IUserInterface gui, IUserRepository userRepo, IBassRepository celcoin) {
+        UserService userService = new UserService(gui, userRepo);
+        BankingService bankingService = new BankingService(gui, celcoin);
 
         while (true) {
             Integer option = gui.showInitialScreenMenu();
@@ -20,25 +18,21 @@ public class Application {
                     UserAccountDTO user = userService.handleLogin();
 
                     if (user != null) {
-                        bankingService.login(user);
+                        bankingService.execute(user);
                     }
                     break;
                 case 2:
-                    UserAccountDTO createdAcc = userService.handleOnboardingAcc();
+                    UserAccountDTO createdAcc = userService.handleRegisterAcc();
 
                     if (createdAcc != null) {
-                        bankingService.login(createdAcc);
+                        bankingService.execute(createdAcc);
                     }
                     break;
                 case 3:
                     gui.showExitMessage();
                     return;
-                default:
-                    gui.showErrorMsg("Opção inválida!");
-                    break;
             }
         }
 
     }
-
 }

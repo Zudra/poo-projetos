@@ -1,14 +1,13 @@
 package com.fag.domain.repositories;
 
-import com.fag.domain.dto.UserAccountDTO;
 import com.fag.domain.dto.BankslipDTO;
 import com.fag.domain.dto.LoginDTO;
-import com.fag.domain.dto.PixDTO;
+import com.fag.domain.dto.UserAccountDTO;
 
 public interface IUserInterface {
 
     Integer showInitialScreenMenu();
-    
+
     Integer showHomeMenu(String userName);
 
     LoginDTO getLoginData();
@@ -21,11 +20,14 @@ public interface IUserInterface {
 
     String getBarcode();
 
-    BankslipDTO getPaymentBankslipInfo();
+    BankslipDTO getPaymentsBankslipInfo();
 
-    void showBankslipData(String recipientFinal, String dueDate, String value);
+    void showBankslipData(String data);
 
-    PixDTO getPixData();
+    Double getPixData();
 
-    void showPixData(String qrCode);
+    void showPixData(String data);
+
+    void showLogoutMessage();
+
 }

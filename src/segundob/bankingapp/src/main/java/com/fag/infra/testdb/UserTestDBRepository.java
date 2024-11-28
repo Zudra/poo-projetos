@@ -7,8 +7,7 @@ import com.fag.domain.dto.UserAccountDTO;
 import com.fag.domain.repositories.IUserRepository;
 
 public class UserTestDBRepository implements IUserRepository {
-
-    private List<UserAccountDTO> userAccounts = new ArrayList<>();
+    List<UserAccountDTO> userAccounts = new ArrayList<>();
 
     @Override
     public UserAccountDTO createUser(UserAccountDTO dto) {
@@ -29,4 +28,12 @@ public class UserTestDBRepository implements IUserRepository {
         return null;
     }
 
+    @Override
+    public UserAccountDTO getLastData() {
+        if (userAccounts != null) {
+            return userAccounts.get(userAccounts.size() - 1);
+        }
+
+        return null;
+    }
 }

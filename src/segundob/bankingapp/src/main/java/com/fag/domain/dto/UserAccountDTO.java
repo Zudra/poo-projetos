@@ -5,18 +5,21 @@ import java.time.LocalDateTime;
 public class UserAccountDTO {
     
     private String id;
-
     private String document;
-
     private String name;
-
     private String email;
-
     private String accountNumber;
-
     private LocalDateTime createAt;
-
     private LocalDateTime disabledAt;
+
+    public UserAccountDTO() {}
+
+    public UserAccountDTO(String document, String name, String email, String accountNumber) {
+        this.document = document;
+        this.name = name;
+        this.email = email;
+        this.accountNumber = accountNumber;
+    }
 
     public String getId() {
         return id;

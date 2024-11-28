@@ -11,7 +11,6 @@ public class PostgresConnection {
     private PostgresConnection() {
         System.out.println("Realizando conexão banco PG/SUPABASE🔌");
 
-        //Url e informações do seu banco no supabase
         String url = "jdbc:postgresql://URL_SEU_BANCO_SUPA:PORTA/BASE_DADOS";
         String username = "SEU_USERNAME_SUPA";
         String password = "SUA_SENHA_SHOW";
@@ -19,7 +18,6 @@ public class PostgresConnection {
         Connection connection = null;
 
         try {
-            //Realizando a conexão
             connection = DriverManager.getConnection(url, username, password);
             
             System.out.println("Deu boa! Banco conectado!🗂");

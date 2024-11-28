@@ -3,8 +3,14 @@ package com.fag.domain.dto;
 public class LoginDTO {
     
     private String document;
-
     private String password;
+
+    public LoginDTO () {}
+
+    public LoginDTO(String document, String password) {
+        this.document = document;
+        this.password = password;
+    }
 
     public String getDocument() {
         return document;

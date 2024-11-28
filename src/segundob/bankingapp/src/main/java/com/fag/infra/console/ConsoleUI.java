@@ -2,6 +2,7 @@ package com.fag.infra.console;
 
 import java.util.Scanner;
 
+import com.fag.domain.dto.LoginDTO;
 import com.fag.domain.dto.UserAccountDTO;
 import com.fag.domain.repositories.IUserInterface;
 
@@ -11,7 +12,7 @@ public class ConsoleUI implements IUserInterface {
 
     @Override
     public Integer showInitialScreenMenu() {
-        System.out.println("Bem vindo ao SandrolaxBank!");
+        System.out.println("Bem vindo ao Zudra Bank!");
         System.out.println("[1] Realizar login");
         System.out.println("[2] Criar conta");
         System.out.println("[3] Sair");
@@ -31,24 +32,52 @@ public class ConsoleUI implements IUserInterface {
 
     @Override
     public com.fag.domain.dto.LoginDTO getLoginData() {
-        
-        return null;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite seu documento:");
+        String document = scanner.nextLine();
+
+        System.out.println("Digite sua senha:");
+        String password = scanner.nextLine();
+
+        LoginDTO loginData = new LoginDTO(document, password);
+
+        scanner.close();
+        return loginData;
     }
 
     @Override
     public UserAccountDTO getCreateUserData() {
-        //receber dados de criação de conta
-        return null;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite seu documento:");
+        String document = scanner.nextLine();
+
+        System.out.println("Digite seu nome:");
+        String name = scanner.nextLine();
+
+        System.out.println("Digite seu email:");
+        String email = scanner.nextLine();
+
+        System.out.println("Digite sua conta:");
+        String accountNumber = scanner.nextLine();
+
+        UserAccountDTO userData = new UserAccountDTO(document, name, email, accountNumber);
+
+        scanner.close();
+        return userData;
     }
 
     @Override
     public void showErrorMsg(String msg) {
-        //Apresentar mensagem de erro
+        System.out.println(msg);
+        return;
     }
     
     @Override
     public void showExitMessage() {
-        //Apresentar mensagem ao selecionar sair da aplicação
+        System.out.println("Obrigado por utilizar o Zudra Bank!");
+        return;
     }
 
 }

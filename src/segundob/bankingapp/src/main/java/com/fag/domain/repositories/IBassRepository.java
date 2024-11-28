@@ -6,5 +6,5 @@ public interface IBassRepository {
 
     String gerarGrCode(String dadosPix);
 
-    String pagarBoleto (String dadosBoletoConsultado);
+    String pagarBoleto (BankslipDTO dadosBoletoConsultado);
 }

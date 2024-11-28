@@ -24,7 +24,6 @@ public class UserService {
         UserAccountDTO user = userRepository.findUserBy(login.getDocument());
 
         if (user == null) {
-            //Será trocado pela nossa exception customizada
             userInterface.showErrorMsg("Usuário não encontrado!");
         }
         

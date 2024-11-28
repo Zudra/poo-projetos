@@ -1,10 +1,13 @@
 package com.fag.domain.repositories;
 
-public interface IBassRepository {
+import com.fag.domain.dto.BankslipDTO;
 
+public interface IBassRepository {
+    
     String consultarBoleto(String linhaDigitavel);
 
-    String gerarGrCode(String dadosPix);
+    String pagarBoleto(String document, BankslipDTO dadosBoletoConsultado, Double originalValue, 
+                        Double valueWithDiscount, Double valueWithAdditional);
 
-    String pagarBoleto (BankslipDTO dadosBoletoConsultado);
+    String gerarQrCode(String document, Double valorPix);
 }

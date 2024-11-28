@@ -1,7 +1,10 @@
 package com.fag.infra.console;
 
+import java.util.Map;
 import java.util.Scanner;
 
+
+import com.fag.domain.dto.BankslipDTO;
 import com.fag.domain.dto.LoginDTO;
 import com.fag.domain.dto.UserAccountDTO;
 import com.fag.domain.repositories.IUserInterface;
@@ -17,7 +20,11 @@ public class ConsoleUI implements IUserInterface {
         System.out.println("[2] Criar conta");
         System.out.println("[3] Sair");
 
-        return inpuScanner.nextInt();
+        int option = inpuScanner.nextInt();
+
+        inpuScanner.nextLine();
+
+        return option;
     }
 
     @Override
@@ -27,45 +34,95 @@ public class ConsoleUI implements IUserInterface {
         System.out.println("[2] Consultar boleto");
         System.out.println("[3] Realizar pagamento boleto");
 
-        return inpuScanner.nextInt();
+        int option = inpuScanner.nextInt();
+
+        inpuScanner.nextLine();
+
+        return option;
     }
 
     @Override
     public com.fag.domain.dto.LoginDTO getLoginData() {
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Digite seu documento:");
-        String document = scanner.nextLine();
+        String document = inpuScanner.nextLine();
 
         System.out.println("Digite sua senha:");
-        String password = scanner.nextLine();
+        String password = inpuScanner.nextLine();
 
         LoginDTO loginData = new LoginDTO(document, password);
 
-        scanner.close();
         return loginData;
     }
 
     @Override
     public UserAccountDTO getCreateUserData() {
-        Scanner scanner = new Scanner(System.in);
+
 
         System.out.println("Digite seu documento:");
-        String document = scanner.nextLine();
+        String document = inpuScanner.nextLine();
 
         System.out.println("Digite seu nome:");
-        String name = scanner.nextLine();
+        String name = inpuScanner.nextLine();
 
         System.out.println("Digite seu email:");
-        String email = scanner.nextLine();
+        String email = inpuScanner.nextLine();
+
+        System.out.println("Digite sua senha:");
+        String password = inpuScanner.nextLine();
 
         System.out.println("Digite sua conta:");
-        String accountNumber = scanner.nextLine();
+        String accountNumber = inpuScanner.nextLine();
 
-        UserAccountDTO userData = new UserAccountDTO(document, name, email, accountNumber);
+        UserAccountDTO userData = new UserAccountDTO(document, name, email, password, accountNumber);
 
-        scanner.close();
         return userData;
+    }
+
+    @Override
+    public String getBarcode() {
+        System.out.println("Insira o código de barras:");
+        String barcode = inpuScanner.nextLine();
+
+        return barcode;
+    }
+
+    @Override
+    public BankslipDTO getPaymentBankslipInfo() {
+        BankslipDTO bankslipDTO = new BankslipDTO();
+
+        System.out.println("Insira o código de barras:");
+        String barcode = inpuScanner.nextLine();
+
+        System.out.println("Insira o identificador de pagamento:");
+        String id = inpuScanner.nextLine();
+
+        bankslipDTO.setBarcode(barcode);
+        bankslipDTO.setTransactionId(id);
+
+        return bankslipDTO;
+    }
+
+    @Override
+    public void showBankslipData(String recipientFinal, String dueDate, String value) { 
+        System.out.println("Dados do boleto: ");
+        System.out.println("Beneficiário: " + recipientFinal);
+        System.out.println("Vencimento: " + dueDate);
+        System.out.println("Valor: " + value);
+        return;
+    }
+
+    @Override
+    public Double getPixData() {
+        System.out.println("Insira valor do PIX:");
+        Double amount = inpuScanner.nextDouble();
+
+        return amount;
+    }
+
+    @Override
+    public void showPixData(String qrCode) {
+    System.out.println("Dados do PIX: ");
     }
 
     @Override

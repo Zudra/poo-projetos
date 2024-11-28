@@ -8,16 +8,18 @@ public class UserAccountDTO {
     private String document;
     private String name;
     private String email;
+    private String password;
     private String accountNumber;
     private LocalDateTime createAt;
     private LocalDateTime disabledAt;
 
     public UserAccountDTO() {}
 
-    public UserAccountDTO(String document, String name, String email, String accountNumber) {
+    public UserAccountDTO(String document, String name, String email, String password,String accountNumber) {
         this.document = document;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.accountNumber = accountNumber;
     }
 
@@ -51,6 +53,14 @@ public class UserAccountDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public LocalDateTime getCreateAt() {

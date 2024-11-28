@@ -2,6 +2,8 @@ package com.fag.service;
 
 import java.util.UUID;
 
+import java.time.LocalDateTime;
+
 import com.fag.domain.dto.LoginDTO;
 import com.fag.domain.dto.UserAccountDTO;
 import com.fag.domain.repositories.IUserInterface;
@@ -34,6 +36,7 @@ public class UserService {
         UserAccountDTO user = userInterface.getCreateUserData();
 
         user.setId(UUID.randomUUID().toString());
+        user.setCreateAt(LocalDateTime.now());
 
         userRepository.createUser(user);
 

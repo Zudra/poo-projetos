@@ -1,5 +1,6 @@
 package com.fag.infra.testdb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fag.domain.dto.UserAccountDTO;
@@ -7,7 +8,7 @@ import com.fag.domain.repositories.IUserRepository;
 
 public class UserTestDBRepository implements IUserRepository {
 
-    List<UserAccountDTO> userAccounts;
+    private List<UserAccountDTO> userAccounts = new ArrayList<>();
 
     @Override
     public UserAccountDTO createUser(UserAccountDTO dto) {
